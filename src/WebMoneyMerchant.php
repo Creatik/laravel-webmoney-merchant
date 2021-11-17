@@ -80,6 +80,19 @@ class WebMoneyMerchant
 	}
 
 	/**
+	 * Calculates the signature for the order - universal.
+	 * @param $LMI_PAYMENT_AMOUNT
+	 * @param $LMI_PAYMENT_NO
+	 * @return string
+	 */
+	public function getFormSignatureUniversal($WM_LMI_PAYEE_PURSE, $LMI_PAYMENT_AMOUNT, $LMI_PAYMENT_NO)
+	{
+		$hashStr = $WM_LMI_PAYEE_PURSE . ';' . $LMI_PAYMENT_AMOUNT . ';' . $LMI_PAYMENT_NO . ';' . config('webmoney-merchant.WM_LMI_SECRET_X20') . ';';
+
+		return hash('sha256', $hashStr);
+	}
+
+	/**
 	 * Returns the hash for the params from WebMoneyMerchant.
 	 * @param Request $request
 	 * @return string
